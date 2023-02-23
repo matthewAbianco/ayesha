@@ -57,14 +57,16 @@ const BusinessPage = () => {
           <View>
             <Text>Specialities</Text>
           </View>
-          <View>Customer review icons</View>
           <View>
-            <View>Icon</View>
-            <View>Icon</View>
-            <View>Icon</View>
-            <View>Icon</View>
-            <View>Icon</View>
-            <View>Icon</View>
+            <Text>Customer Review Icon</Text>
+          </View>
+          <View>
+            <Text>Icon</Text>
+            <Text>Icon</Text>
+            <Text>Icon</Text>
+            <Text>Icon</Text>
+            <Text>Icon</Text>
+            <Text>Icon</Text>
           </View>
         </View>
         {/* Services offered */}
@@ -77,7 +79,9 @@ const BusinessPage = () => {
             <View>{/* User and business review */}</View>
             <View>
               <Text>Business Reviews</Text>
-              <View>Review Cards Here!</View>
+              <View>
+                <Text>Review Cards Here!</Text>
+              </View>
             </View>
           </View>
           <View></View>
