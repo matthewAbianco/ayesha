@@ -4,7 +4,9 @@ import { View, Text } from 'react-native';
 export default function componentName() {
     return (
         <View>
-            <Text></Text>
+            <Text>business search
+
+            </Text>
         </View>
     );
 }
