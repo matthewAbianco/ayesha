@@ -1,12 +1,12 @@
 import { View, Text } from "react-native"
 import React from "react"
 
-const Services = () => {
+const SearchBusiness = () => {
   return (
     <View>
-      <Text>I am a service Package</Text>
+      <Text>Search Business</Text>
     </View>
   )
 }
 
-export default Services
+export default SearchBusiness
