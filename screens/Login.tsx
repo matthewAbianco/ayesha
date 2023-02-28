@@ -18,11 +18,11 @@ const Login = ({ navigation }) => {
   const background = require("../assets/background.jpg")
 
   if (auth.currentUser) {
-    navigation.navigate("Main")
+    navigation.navigate("TabNavigator")
   } else {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigation.navigate("Main")
+        navigation.navigate("TabNavigator")
       }
     })
   }
@@ -35,7 +35,7 @@ const Login = ({ navigation }) => {
     if (email !== "" && password !== "") {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          navigation.navigate("Main", { user: userCredential.user })
+          navigation.navigate("TabNavigator", { user: userCredential.user })
         })
         .catch((error) => {
           setErrorMessage(error.message)
