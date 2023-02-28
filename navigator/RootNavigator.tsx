@@ -73,7 +73,7 @@ const RootNavigator = () => {
           options={{ headerShown: false }}
         />
         <Stack.Group>
-          <Stack.Screen name="TabNavigator" component={TabNavigator} />
+          <Stack.Screen name="Main" component={TabNavigator} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
