@@ -10,8 +10,7 @@ import ManageAccount from "../screens/ManageAccount"
 import BusinessPage from "../screens/BusinessPage"
 import TabNavigator from "./TabNavigator"
 import JobBoard from "../screens/JobBoard"
-import { useLayoutEffect } from "react"
-import { useNavigation } from "@react-navigation/native"
+import BusinessEditModal from "../screens/BusinessEditModal"
 
 export type StackParamList = {
   Main: undefined
@@ -24,6 +23,7 @@ export type StackParamList = {
   Crud: undefined
   BusinessPage: undefined
   JobBoard: undefined
+  BusinessEditModal: undefined
 }
 
 const Stack = createNativeStackNavigator<StackParamList>()
@@ -74,6 +74,18 @@ const RootNavigator = () => {
         />
         <Stack.Group>
           <Stack.Screen name="Main" component={TabNavigator} />
+        </Stack.Group>
+
+        <Stack.Group
+          screenOptions={{
+            presentation: "modal",
+          }}
+        >
+          <Stack.Screen
+            name="BusinessEditModal"
+            component={BusinessEditModal}
+            options={{ headerShown: false }}
+          />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
