@@ -65,12 +65,66 @@ const BusinessEditModal = () => {
             <Text>List of references</Text>
           </View>
           {/* List of references  */}
-          {/* Meet The Team Section */}
+
+          {/* Education and certification  */}
           <View>
-            <Text>Meet The Team</Text>
+            <Text>Education and certification </Text>
+          </View>
+          {/* Education and certification */}
+
+          {/* Meet The Team  */}
+          <View>
+            <Text>
+              Meet The Team/ different cards showing a photo, name and small bio
+            </Text>
           </View>
           {/* Meet The Team  */}
+
+          {/* Services offered  */}
+          <View>
+            <Text>
+              Services offered / these are the cards people make to show their
+              products
+            </Text>
+            <Text>
+              A La Carte Menu showing add-ons to a service being requested
+            </Text>
+          </View>
+          {/* Services offered   */}
+
+          {/* Coverage rates for different travel distances */}
+          <View>
+            <Text>Coverage rates for different travel distances</Text>
+          </View>
+          {/* Coverage rates for different travel distances */}
         </View>
+        {/* Logos Of companies previously worked for */}
+        <View>
+          <Text> Logos Of companies previously worked for</Text>
+        </View>
+        {/* Logos Of companies previously worked for */}
+        {/* Languages Spoken */}
+        <View>
+          <Text> Languages Spoken</Text>
+        </View>
+        {/* Languages Spoken */}
+        {/*Business Video */}
+        <View>
+          <Text>Business Video</Text>
+        </View>
+        {/* Business Video */}
+        {/* Time needed prior to booking.*/}
+        <View>
+          <Text> Time needed prior to booking. </Text>
+        </View>
+        {/* Time needed prior to booking.*/}
+        {/* frequently works with section if people work together often */}
+        <View>
+          <Text>
+            frequently works with section if people work together often
+          </Text>
+        </View>
+        {/* frequently works with section if people work together often  */}
       </SafeAreaView>
     </KeyboardAvoidingView>
   )
