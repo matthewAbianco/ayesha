@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react"
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore"
 import { auth, db } from "../firebase"
+import * as ImagePicker from 'expo-image-picker';
+import { initializeApp } from "firebase/app"; // validate yourself
+import { getStorage, ref, uploadBytes } from 'firebase/storage' //access the storage database in firebase
 import {
   Text,
+  Image,
   View,
+  Platform,
   TextInput,
   Button,
   SafeAreaView,
@@ -12,6 +17,34 @@ import {
 import A from "../styles/A"
 
 const BusinessEditModal = () => {
+
+  const [image, setImage] = useState(null);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      const storage = getStorage();
+      const storageRef = ref(storage, 'index.jpg')
+
+      const img = await fetch(result.uri)
+      const bytes = await img.blob()
+
+      await uploadBytes(storageRef, bytes)
+
+      setImage(result.assets[0].uri);
+    }
+  };
+
+
   return (
     <KeyboardAvoidingView>
       <SafeAreaView>
@@ -20,6 +53,13 @@ const BusinessEditModal = () => {
           <View>
             <Text>Cover Photo</Text>
             <Text>Add photo here</Text>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <Button title="Pick an image from camera roll" onPress={pickImage} />
+              {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+            </View>
+
+
+
           </View>
           {/* Cover Photo */}
 
