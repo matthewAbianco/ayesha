@@ -55,7 +55,7 @@ export default StyleSheet.create({
     padding: 16,
   },
   lightText: {
-    color: "#FFF",
+    color: "#000",
   },
   errorText: {
     color: "#ff0000",
@@ -69,8 +69,7 @@ export default StyleSheet.create({
     padding: 8,
     borderBottomWidth: 2,
     marginVertical: 8,
-    color: "#87F1FF",
-    textDecorationColor: "#87F1FF",
+    color: "#ff0000",
   },
   lightTextInput: {
     borderBottomColor: "#ffffff",
@@ -88,6 +87,6 @@ export default StyleSheet.create({
   border: {
     borderColor: "#f3f3f3",
     borderStyle: "solid",
-    borderwidth: "5px",
+    borderWidth: "5px",
   },
 })

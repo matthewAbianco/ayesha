@@ -1,40 +1,49 @@
-import { Text, View, TextInput, ImageBackground, Button, KeyboardAvoidingView, Platform } from 'react-native';
-import InlineTextButton from '../components/InlineTextButton';
-import React, { useState } from 'react';
-import { auth, db } from '../firebase'
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import A from '../styles/A';
-import { collection, addDoc } from 'firebase/firestore';
+import {
+    Text,
+    View,
+    TextInput,
+    ImageBackground,
+    Button,
+    KeyboardAvoidingView,
+    Platform,
+} from "react-native"
+import InlineTextButton from "../components/InlineTextButton"
+import React, { useState } from "react"
+import { auth, db } from "../firebase"
+import {
+    createUserWithEmailAndPassword,
+    sendEmailVerification,
+} from "firebase/auth"
+import A from "../styles/A"
+import { collection, addDoc } from "firebase/firestore"
 
 export default function SignUp({ navigation }) {
-    const background = require("../assets/background.jpg");
-
+    const background = require("../assets/background.jpg")
 
     //username and password signup start
-    let [email, setEmail] = useState("");
-    let [password, setPassword] = useState("");
-    let [confirmPassword, setConfirmPassword] = useState("");
-    let [validationMessage, setValidationMessage] = useState("");
+    let [email, setEmail] = useState("")
+    let [password, setPassword] = useState("")
+    let [confirmPassword, setConfirmPassword] = useState("")
+    let [validationMessage, setValidationMessage] = useState("")
 
     // confirm passwords match for sign up
     let validateAndSet = (value, valueToCompare, setValue) => {
         if (value !== valueToCompare) {
-            setValidationMessage("Passwords do not match.");
+            setValidationMessage("Passwords do not match.")
         } else {
-            setValidationMessage("");
+            setValidationMessage("")
         }
 
-        setValue(value);
-    };
+        setValue(value)
+    }
 
     // if passwords match, sends new signup data to firestore
     let signUp = () => {
-        if (password === confirmPassword && personalName !== '') {
-            createUserWithEmailAndPassword(auth, email, password,
-            )
+        if (password === confirmPassword) {
+            createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     sendEmailVerification(auth.currentUser)
-                    navigation.navigate("Login", { user: userCredential.user });
+                    navigation.navigate("BusinessPage", { user: userCredential.user });
                 })
                 .catch((error) => {
                     setValidationMessage(error.message);
@@ -44,7 +53,6 @@ export default function SignUp({ navigation }) {
     // username and password signup end
 
     // personal name
-    const [personalName, setPersonalName] = useState('')
 
     let addPersonalData = async (name) => {
         const docRef = await addDoc(collection(db, "users"), {
@@ -58,7 +66,6 @@ export default function SignUp({ navigation }) {
     const [businessName, setBusinessName] = useState('')
 
 
-
     return (
         <ImageBackground style={A.imageContainer} source={background}>
             <KeyboardAvoidingView
@@ -67,7 +74,7 @@ export default function SignUp({ navigation }) {
                 keyboardVerticalOffset={60}>
                 <Text style={[A.lightText, A.header]}>Sign Up</Text>
                 <Text style={[A.errorText]}>{validationMessage}</Text>
-                <Button title="add name" onPress={addPersonalData} color="#f7b267" />
+
                 {/* add email */}
                 <TextInput
                     style={[A.textInput, A.lightTextInput, A.lightText]}
@@ -79,11 +86,14 @@ export default function SignUp({ navigation }) {
                 {/* set password */}
                 <TextInput
                     style={[A.textInput, A.lightTextInput, A.lightText]}
-                    placeholder='Password'
+                    placeholder="Password"
                     placeholderTextColor="#BEBEBE"
                     secureTextEntry={true}
                     value={password}
-                    onChangeText={(value) => validateAndSet(value, confirmPassword, setPassword)} />
+                    onChangeText={(value) =>
+                        validateAndSet(value, confirmPassword, setPassword)
+                    }
+                />
 
                 {/* confirm password */}
                 <TextInput
@@ -95,12 +105,12 @@ export default function SignUp({ navigation }) {
                     onChangeText={(value) => validateAndSet(value, password, setConfirmPassword)} />
 
                 {/* personal name */}
-                <TextInput
+                {/* <TextInput
                     style={[A.textInput, A.lightTextInput, A.lightText]}
                     placeholder='Your name here'
                     placeholderTextColor="#BEBEBE"
                     value={personalName}
-                    onChangeText={setPersonalName} />
+                    onChangeText={setPersonalName} /> */}
 
 
                 {/* business name */}
@@ -122,7 +132,7 @@ export default function SignUp({ navigation }) {
 
                 <View style={[A.rowContainer, A.topMargin]}>
                     <Text style={A.lightText}>Already have an account? </Text>
-                    <InlineTextButton text="Back to login?" onPress={() => navigation.popToTop()} />
+                    <InlineTextButton text="Login" onPress={() => navigation.popToTop()} />
                 </View>
                 <Button title="Sign Up" onPress={signUp} color="#f7b267" />
             </KeyboardAvoidingView>

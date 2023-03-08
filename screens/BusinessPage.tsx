@@ -4,16 +4,23 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   SafeAreaView,
+  TouchableOpacity,
 } from "react-native"
 import InlineTextButton from '../components/InlineTextButton';
 import React from "react"
 import Reviews from "./Reviews"
 import A from "../styles/A"
+import { Icon } from "@rneui/themed"
 
 const BusinessPage = ({ navigation }) => {
   return (
     <KeyboardAvoidingView>
       <SafeAreaView style={A.container}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("BusinessEditModal")}
+        >
+          <Icon name="edit" type="antdesign" color={"#A96F9B"} />
+        </TouchableOpacity>
         <ScrollView>
           {/* Cover Photo Div */}
           <View>
