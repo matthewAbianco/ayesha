@@ -29,11 +29,12 @@ export default function SignUp({ navigation }) {
 
     // if passwords match, sends new signup data to firestore
     let signUp = () => {
-        if (password === confirmPassword) {
-            createUserWithEmailAndPassword(auth, email, password)
+        if (password === confirmPassword && personalName !== '') {
+            createUserWithEmailAndPassword(auth, email, password,
+            )
                 .then((userCredential) => {
                     sendEmailVerification(auth.currentUser)
-                    navigation.navigate("BusinessPage", { user: userCredential.user });
+                    navigation.navigate("Login", { user: userCredential.user });
                 })
                 .catch((error) => {
                     setValidationMessage(error.message);
@@ -43,6 +44,7 @@ export default function SignUp({ navigation }) {
     // username and password signup end
 
     // personal name
+    const [personalName, setPersonalName] = useState('')
 
     let addPersonalData = async (name) => {
         const docRef = await addDoc(collection(db, "users"), {
@@ -56,6 +58,7 @@ export default function SignUp({ navigation }) {
     const [businessName, setBusinessName] = useState('')
 
 
+
     return (
         <ImageBackground style={A.imageContainer} source={background}>
             <KeyboardAvoidingView
@@ -64,7 +67,7 @@ export default function SignUp({ navigation }) {
                 keyboardVerticalOffset={60}>
                 <Text style={[A.lightText, A.header]}>Sign Up</Text>
                 <Text style={[A.errorText]}>{validationMessage}</Text>
-
+                <Button title="add name" onPress={addPersonalData} color="#f7b267" />
                 {/* add email */}
                 <TextInput
                     style={[A.textInput, A.lightTextInput, A.lightText]}
@@ -92,12 +95,12 @@ export default function SignUp({ navigation }) {
                     onChangeText={(value) => validateAndSet(value, password, setConfirmPassword)} />
 
                 {/* personal name */}
-                {/* <TextInput
+                <TextInput
                     style={[A.textInput, A.lightTextInput, A.lightText]}
                     placeholder='Your name here'
                     placeholderTextColor="#BEBEBE"
                     value={personalName}
-                    onChangeText={setPersonalName} /> */}
+                    onChangeText={setPersonalName} />
 
 
                 {/* business name */}
@@ -119,7 +122,7 @@ export default function SignUp({ navigation }) {
 
                 <View style={[A.rowContainer, A.topMargin]}>
                     <Text style={A.lightText}>Already have an account? </Text>
-                    <InlineTextButton text="Login" onPress={() => navigation.popToTop()} />
+                    <InlineTextButton text="Back to login?" onPress={() => navigation.popToTop()} />
                 </View>
                 <Button title="Sign Up" onPress={signUp} color="#f7b267" />
             </KeyboardAvoidingView>

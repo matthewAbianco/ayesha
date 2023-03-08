@@ -5,17 +5,19 @@ import {
   KeyboardAvoidingView,
   SafeAreaView,
 } from "react-native"
+import InlineTextButton from '../components/InlineTextButton';
 import React from "react"
 import Reviews from "./Reviews"
 import A from "../styles/A"
 
-const BusinessPage = () => {
+const BusinessPage = ({ navigation }) => {
   return (
     <KeyboardAvoidingView>
       <SafeAreaView style={A.container}>
         <ScrollView>
           {/* Cover Photo Div */}
           <View>
+            <InlineTextButton text="Back to login?" onPress={() => navigation.popToTop()} />
             <View>{/* Cover Photo */}</View>
             <View style={A.border}>
               <Text>Cover Photo</Text>
