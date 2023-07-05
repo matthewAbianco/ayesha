@@ -12,6 +12,8 @@ import Reviews from "./Reviews"
 import A from "../styles/A"
 import { Icon } from "@rneui/themed"
 
+
+
 const BusinessPage = ({ navigation }) => {
   return (
     <KeyboardAvoidingView>

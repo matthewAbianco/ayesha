@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react"
-import { collection, addDoc, query, where, getDocs } from "firebase/firestore"
+import { collection, addDoc, query, where, getDocs, setDoc, doc, updateDoc } from "firebase/firestore"
 import { auth, db } from "../firebase"
 import * as ImagePicker from 'expo-image-picker';
-import { initializeApp } from "firebase/app"; // validate yourself
 import { getStorage, ref, uploadBytes } from 'firebase/storage' //access the storage database in firebase
 import {
   Text,
@@ -17,10 +16,10 @@ import {
 import A from "../styles/A"
 
 const BusinessEditModal = () => {
-
+  // uploads and sets upon selection business display photo
   const [image, setImage] = useState(null);
 
-  const pickImage = async () => {
+  const pickCoverPhoto = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -44,6 +43,53 @@ const BusinessEditModal = () => {
     }
   };
 
+  // uploads and sets upon selection business display photo
+
+  // Business Bio input 
+
+  const [bio, setBio] = useState("")
+  const [users, setUsers] = useState([]);
+  const userCollectionRef = collection(db, 'users')
+
+
+
+  const userData = async () => {
+    if (userCollectionRef === null) {
+      const docRef = await addDoc(collection(db, "users"), {
+        bio: "",
+
+        userId: auth.currentUser.uid
+      });
+      userData()
+    } else {
+      const getUserData = async () => {
+        const data = await getDocs(userCollectionRef)
+        setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      }
+      getUserData()
+    }
+  }
+
+
+
+
+  // creates the business bio
+
+  const userBio = () => {
+    return async (id, bio) => {
+      const userDoc = doc(db, 'users', id)
+      const newFields = { bio: bio }
+      await updateDoc(userDoc, newFields)
+    }
+
+  }
+
+
+  // creates the business bio
+
+  // updates business bio
+
+  // Business Bio input 
 
   return (
     <KeyboardAvoidingView>
@@ -54,11 +100,9 @@ const BusinessEditModal = () => {
             <Text>Cover Photo</Text>
             <Text>Add photo here</Text>
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-              <Button title="Pick an image from camera roll" onPress={pickImage} />
+              <Button title="Pick an image from camera roll" onPress={pickCoverPhoto} />
               {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
             </View>
-
-
 
           </View>
           {/* Cover Photo */}
@@ -68,11 +112,47 @@ const BusinessEditModal = () => {
             <Text>List of Novice, Apprentice, Master</Text>
           </View>
           {/* List for different stages of mastery within profession */}
+
           {/* Business Bio  */}
           <View>
             <Text>Bio Of Business</Text>
+            <TextInput
+              placeholder="Write a Small Bio about your business here"
+              placeholderTextColor="#000"
+              value={bio}
+              onChangeText={setBio}
+            />
+            <Button
+              onPress={userBio}
+              title="Update Bio"
+              color="#841584"
+              accessibilityLabel="Learn more about this purple button"
+            />
           </View>
           {/* Business Bio  */}
+
+          {users.map((user) => {
+            return (
+              <Text>Bio: {user.bio} </Text>
+            )
+          })}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           {/* Weekly Availability */}
           <View>
             <Text>Weekly Availability. </Text>

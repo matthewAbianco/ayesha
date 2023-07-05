@@ -1,3 +1,5 @@
+// This is the Main Navigation Component in the application. 
+
 import React from "react"
 import Login from "../screens/Login"
 import SignUp from "../screens/SignUp"
